@@ -1,4 +1,4 @@
-FROM ubuntu:latest as build
+FROM mcr.microsoft.com/dotnet/runtime-deps:6.0 as build
 
 ARG RUNNER_VERSION="2.320.0"
 ARG RUNNER_ARCH="x64"
