@@ -8,7 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV RUNNER_MANUALLY_TRAP_SIG=1
 ENV ACTIONS_RUNNER_PRINT_LOG_TO_STDOUT=1
 
-RUN dnf update -y && dnf install curl unzip -y
+RUN yum update -y && yum install curl unzip -y
 
 RUN adduser --disabled-password --gecos "" --uid 1001 runner \
     && groupadd docker --gid 123 \
