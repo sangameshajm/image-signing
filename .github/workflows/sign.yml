@@ -39,12 +39,17 @@ jobs:
           push: true
           provenance: mode=max
           sbom: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.job }}-${{ github.run_id }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.run_id }}-${{ github.run_number }}
 
-      - name: Attest
-        uses: actions/attest-build-provenance@v1
-        id: attest
-        with:
-          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          subject-digest: ${{ steps.push.outputs.digest }}
-          push-to-registry: true
+      - name: Docker Image Inspection
+        run: |
+          docker images
+          docker inspect ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.run_id }}-${{ github.run_number }}
+
+      # - name: Attest
+      #   uses: actions/attest-build-provenance@v1
+      #   id: attest
+      #   with:
+      #     subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      #     subject-digest: ${{ steps.push.outputs.digest }}
+      #     push-to-registry: true
